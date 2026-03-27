@@ -29,7 +29,7 @@
                 <artifactId>exec-maven-plugin</artifactId>
                 <version>3.4.1</version>
                 <configuration>
-                    <mainClass>org.mailtrap.Main</mainClass>
+                    <mainClass>tp2.ej1.Main</mainClass>
                 </configuration>
             </plugin>
         </plugins>
