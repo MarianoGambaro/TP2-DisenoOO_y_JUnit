@@ -1,4 +1,4 @@
-package org.example;
+package tp2.ej4;
 
 import jakarta.mail.*;
 import jakarta.mail.internet.InternetAddress;

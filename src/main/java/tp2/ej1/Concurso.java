@@ -1,5 +1,8 @@
 package tp2.ej1;
 
+import tp2.Exportador;
+import tp2.FileExport;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,14 +11,14 @@ public class Concurso {
     private static int cont = 1;
 
     private int id;
-    private FileExport export;
+    private Exportador exportador;
     private LocalDate fechaInicio;
     private LocalDate fechaFin;
     private List<Participante> participantes;
     private List<Inscripcion> inscripciones;
 
-    public Concurso(LocalDate fechaInicio, LocalDate fechaFin, FileExport export){
-        this.export = export;
+    public Concurso(LocalDate fechaInicio, LocalDate fechaFin, Exportador exportador){
+        this.exportador = exportador;
         this.fechaInicio = fechaInicio;
         this.fechaFin = fechaFin;
         this.participantes = new ArrayList<>();
@@ -33,7 +36,7 @@ public class Concurso {
         participantes.add(participante);
         inscripciones.add(insc);
 
-        export.exportar(insc.toString());
+        exportador.exportar(insc.toString());
 
         if(fechaInscripcion.equals(fechaInicio)){
             participante.sumarPuntos(10);
