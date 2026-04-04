@@ -8,7 +8,7 @@ CREATE TABLE inscripciones (
     id_participante INT,
     id_concurso INT
 );
-------------------------------------
+
 Pagos:
 
 CREATE TABLE pagos (
