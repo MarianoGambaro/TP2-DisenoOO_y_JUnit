@@ -16,6 +16,17 @@ public class Inscripcion {
         fecha =  LocalDateTime.now();
     }
 
+    //Getters para la bd
+    public LocalDateTime getFecha(){
+        return fecha;
+    }
+    public Participante getParticipante(){
+        return participante;
+    }
+    public Concurso getConcurso(){
+        return concurso;
+    }
+
     @Override
     public String toString() {
         return fecha.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) +

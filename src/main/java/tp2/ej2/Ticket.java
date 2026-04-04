@@ -13,6 +13,14 @@ public class Ticket {
         this.monto = monto;
     }
 
+    //getters para la bd
+    public LocalDateTime getFecha(){
+        return fecha;
+    }
+    public double getMonto(){
+        return monto;
+    }
+
     @Override
     public String toString() {
         return fecha.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) + " || " + monto + System.lineSeparator();

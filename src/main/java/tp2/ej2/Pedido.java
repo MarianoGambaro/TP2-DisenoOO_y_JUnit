@@ -1,6 +1,6 @@
 package tp2.ej2;
 
-import tp2.Exportador;
+import tp2.ej3.Exportador;
 import tp2.FileExport;
 import tp2.ej2.tarjetas.Tarjeta;
 
@@ -10,12 +10,12 @@ import java.util.List;
 public class Pedido {
     private List<ItemPedido> items;
     private boolean confirmado;
-    private Exportador exportador;
+    //private Exportador exportador;
 
-    public Pedido(Exportador exportador){
+    public Pedido(){
         items = new ArrayList<ItemPedido>();
         confirmado = false;
-        this.exportador = exportador;
+        //this.exportador = exportador;
     }
 
     public void agregarItem(ItemPedido item){
@@ -70,7 +70,9 @@ public class Pedido {
         double propina = totalConDescuento * porcentajePropina;
 
         double totalFinal = totalConDescuento + propina;
-        exportador.exportar(new Ticket(totalFinal).toString());
+
+
+        //exportador.exportar(new Ticket(totalFinal).toString());
         //calculo el total final y luego lo exporto,
         // ya que la consigna pide exportar cada vez que se calcule el costo de una cena/almuerzo
         return totalFinal;

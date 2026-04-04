@@ -1,6 +1,6 @@
 package tp2.ej1;
 
-import tp2.Exportador;
+import tp2.ej3.Exportador;
 import tp2.FileExport;
 
 import java.time.LocalDate;
@@ -11,14 +11,13 @@ public class Concurso {
     private static int cont = 1;
 
     private int id;
-    private Exportador exportador;
+    //private Exportador exportador;
     private LocalDate fechaInicio;
     private LocalDate fechaFin;
     private List<Participante> participantes;
     private List<Inscripcion> inscripciones;
 
-    public Concurso(LocalDate fechaInicio, LocalDate fechaFin, Exportador exportador){
-        this.exportador = exportador;
+    public Concurso(LocalDate fechaInicio, LocalDate fechaFin){
         this.fechaInicio = fechaInicio;
         this.fechaFin = fechaFin;
         this.participantes = new ArrayList<>();
@@ -32,12 +31,7 @@ public class Concurso {
         if(fechaInscripcion.isBefore(fechaInicio) || fechaInscripcion.isAfter(fechaFin)){
             throw new RuntimeException("La inscripcion esta fuera de la fecha permitida");
         }
-        Inscripcion insc = new Inscripcion(participante, this);
         participantes.add(participante);
-        inscripciones.add(insc);
-
-        exportador.exportar(insc.toString());
-
         if(fechaInscripcion.equals(fechaInicio)){
             participante.sumarPuntos(10);
         }
