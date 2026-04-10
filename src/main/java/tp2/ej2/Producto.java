@@ -4,15 +4,15 @@ public abstract class Producto {
     private String nombre;
     private double precio;
 
-    public abstract double subtotalPlato(double subtotal);
-    public abstract double subtotalBebida(double subtotal);
+    public abstract double calcularSubtotalPlato(ItemPedido itemPedido);
+    public abstract double calcularSubtotalBebida(ItemPedido itemPedido);
 
     public Producto(String nombre, double precio){
-        validarPrecio(precio);
+        validarPrecioMayorACero(precio);
         this.nombre = nombre;
         this.precio = precio;
     }
-    private void validarPrecio(double precio){
+    private void validarPrecioMayorACero(double precio){
         if(precio <= 0){
             throw new RuntimeException("El precio debe ser mayor a cero");
         }

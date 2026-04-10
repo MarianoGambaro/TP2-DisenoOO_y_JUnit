@@ -13,6 +13,7 @@ public class DBExport implements Exportador {
     private String url;
     private String usuario;
     private String clave;
+
 // meti los parametros dentro del constructor para aplicar la inyeccion de dependencias
     public DBExport(String url, String usuario, String clave){
         this.url = url;
@@ -44,7 +45,7 @@ public class DBExport implements Exportador {
             String sql = "INSERT INTO inscripciones (fecha, id_participante, id_concurso) VALUES (?, ?, ?)";
 
             PreparedStatement stmt = con.prepareStatement(sql);
-            stmt.setObject(1, insc.getFecha());
+            stmt.setObject(1, insc.getFechaInscripcion());
             stmt.setObject(2, insc.getParticipante().getId());
             stmt.setObject(3, insc.getConcurso().getId());
 

@@ -6,15 +6,15 @@ public class Bebida extends Producto{
         super(nombre, precio);
     }
 
-    //cuando el objeto es bebida, contiene el subtotal. De lo contrario retorna 0
+    //cuando el objeto es bebida, calcula su subtotal. De lo contrario retorna 0
     @Override
-    public double subtotalPlato(double subtotal) {
+    public double calcularSubtotalPlato(ItemPedido itemPedido) {
         return 0;
     }
 
     @Override
-    public double subtotalBebida(double subtotal) {
-        return subtotal;
+    public double calcularSubtotalBebida(ItemPedido itemPedido) {
+        return itemPedido.calcularSubtotal();
     }
 
 

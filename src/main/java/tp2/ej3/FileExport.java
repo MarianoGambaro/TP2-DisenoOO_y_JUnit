@@ -17,12 +17,12 @@ public class FileExport implements Exportador {
 
     @Override
     public void exportarPago(Ticket ticket) {
-        escribir(ticket.toString());
+        escribir(ticket.toCSV());
     }
 
     @Override
     public void exportarInsc(Inscripcion insc) {
-        escribir(insc.toString());
+        escribir(insc.toCSV());
     }
 
     private void escribir(String datos) {

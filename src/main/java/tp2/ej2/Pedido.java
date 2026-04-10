@@ -1,8 +1,7 @@
 package tp2.ej2;
 
-import tp2.ej3.Exportador;
-import tp2.FileExport;
 import tp2.ej2.tarjetas.Tarjeta;
+import tp2.ej3.Exportador;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,16 +9,16 @@ import java.util.List;
 public class Pedido {
     private List<ItemPedido> items;
     private boolean confirmado;
-    //private Exportador exportador;
+    private Exportador exportador;
 
-    public Pedido(){
+    public Pedido(Exportador exportador){
+        this.exportador = exportador;
         items = new ArrayList<ItemPedido>();
         confirmado = false;
-        //this.exportador = exportador;
     }
 
     public void agregarItem(ItemPedido item){
-        validarPedidoEditable();
+        validarPedidoEsEditable();
         items.add(item);
     }
 
@@ -39,7 +38,7 @@ public class Pedido {
     public double calcularTotalBebidas(){
         double totalBebidas = 0;
         for(ItemPedido item : items){
-            totalBebidas += item.obtenerProducto().subtotalBebida(item.calcularSubtotal());
+            totalBebidas += item.obtenerProducto().calcularSubtotalBebida(item);
         }
         return totalBebidas;
     }
@@ -48,7 +47,7 @@ public class Pedido {
     public double calcularTotalPlatos(){
         double totalPlatos = 0;
         for(ItemPedido item : items){
-            totalPlatos += item.obtenerProducto().subtotalPlato(item.calcularSubtotal());
+            totalPlatos += item.obtenerProducto().calcularSubtotalPlato(item);
         }
         return totalPlatos;
     }
@@ -63,33 +62,36 @@ public class Pedido {
         if(!confirmado){
             throw new RuntimeException("El pedido debe estar confirmado");
         }
-        validarPorcentaje(porcentajePropina);
+        validarPorcentajePropina(porcentajePropina);
         double totalBase = total();
         double descuento = tarjeta.calcularDescuento(this);
         double totalConDescuento = totalBase - descuento;
         double propina = totalConDescuento * porcentajePropina;
 
         double totalFinal = totalConDescuento + propina;
+        Ticket ticket = new Ticket(totalFinal);
+        exportador.exportarPago(ticket);
 
-
-        //exportador.exportar(new Ticket(totalFinal).toString());
-        //calculo el total final y luego lo exporto,
-        // ya que la consigna pide exportar cada vez que se calcule el costo de una cena/almuerzo
         return totalFinal;
+        //ahora el metodo retorna un ticket para poder exportarse facilmente
     }
 
 
     //validacion del estado del pedido
-    public void validarPedidoEditable(){
+    public void validarPedidoEsEditable(){
         if(confirmado){
             throw new RuntimeException("El pedido ya fue confirmado");
         }
     }
 
-    //validacion de porcentaje
-    public void validarPorcentaje(double porcentaje){
+    //validacion de porcentaje de propina
+    public void validarPorcentajePropina(double porcentaje){
         if(porcentaje != 0.02 && porcentaje != 0.03 && porcentaje != 0.05){
             throw new RuntimeException("Porcentaje de propina invalido");
         }
+    }
+
+    public int cantidadItems(){
+        return items.size();
     }
 }

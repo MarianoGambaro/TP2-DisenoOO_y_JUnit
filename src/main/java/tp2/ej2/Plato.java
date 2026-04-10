@@ -6,14 +6,14 @@ public class Plato extends Producto{
         super(nombre,precio);
     }
 
-    //cuando el objeto es plato, contiene el subtotal. De lo contrario retorna 0.
+    //cuando el objeto es plato, calcula su subtotal. De lo contrario retorna 0.
     @Override
-    public double subtotalPlato(double subtotal) {
-        return subtotal;
+    public double calcularSubtotalPlato(ItemPedido itemPedido) {
+        return itemPedido.calcularSubtotal();
     }
 
     @Override
-    public double subtotalBebida(double subtotal) {
+    public double calcularSubtotalBebida(ItemPedido itemPedido) {
         return 0;
     }
 }

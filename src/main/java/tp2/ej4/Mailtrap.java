@@ -3,10 +3,11 @@ package tp2.ej4;
 import jakarta.mail.*;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
+import tp2.ej1.Inscripcion;
 
 import java.util.Properties;
 
-public class Mailtrap {
+public class Mailtrap implements Notificador {
     private String host;
     private String username;
     private String password;
@@ -19,19 +20,11 @@ public class Mailtrap {
         this.port = port;
     }
 
-    public void enviarMail(){
+    public void enviarInscripcion(String email){
         // provide recipient's email ID
-        String to = "your.recipient@email.com";
+        String to = email;
         // provide sender's email ID
-        String from = "john.doe@your.domain";
-
-        // provide account credentials
-//        final String username = username;
-//        final String password = "6e545bd6f295d5";
-
-        // provide host address
-        //String host = "sandbox.smtp.mailtrap.io";
-
+        String from = "concurso@your.domain";
         // configure SMTP details
         Properties props = new Properties();
             props.put("mail.smtp.auth", "true");
@@ -56,9 +49,9 @@ public class Mailtrap {
             // set To email field
             message.setRecipient(Message.RecipientType.TO, new InternetAddress(to));
             // set email subject field
-            message.setSubject("Hello from the Mailtrap team");
+            message.setSubject("Inscripcion");
             // set the content of the email message
-            message.setText("Enjoy sending emails from Jakarta Mail!");
+            message.setText("¡Tu inscripción fue realizada con exito!");
 
             // send the email message
             Transport.send(message);

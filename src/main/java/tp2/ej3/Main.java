@@ -1,33 +1,31 @@
 package tp2.ej3;
 
+import tp2.FileExport;
 import tp2.ej1.Concurso;
 import tp2.ej1.Inscripcion;
 import tp2.ej1.Participante;
 import tp2.ej2.*;
-import tp2.FileExport;
 import tp2.ej2.tarjetas.TarjetaVisa;
+import tp2.ej4.Notificador;
+import tp2.ej4.Mailtrap;
 
 import java.time.LocalDate;
 
 public class Main {
     static void main(String[] args) {
-        //-----------------------------------------------------------------------
-        Participante p1 = new Participante("Carlos");
-        Participante p2 = new Participante("Juana");
-        Participante p3 = new Participante("Julian");
-        Participante p4 = new Participante("Mariano");
 
-        Concurso concurso = new Concurso(LocalDate.now(), LocalDate.now().plusDays(5));
+        Exportador exportarFile = new FileExport("C:/Users/marti/OneDrive/Documents/UNI/3er año 26/Objetos 2/TP/-salida.txt");
+        Exportador exportarDB = new DBExport("jdbc:mysql://localhost:3306/tp_objetos", "root", "");
+
+        //-----------------------------------------------------------------------
+        Participante p1 = new Participante("Carlos", "carilito@gmail.com");
+        Participante p2 = new Participante("Juana", "juana@gmail.com");
+
+        Notificador notificador = new Mailtrap("sandbox.smtp.mailtrap.io","","",2525);
+        Concurso concurso = new Concurso(LocalDate.now(), LocalDate.now().plusDays(5), exportarDB, notificador);
 
         concurso.inscribirParticipante(p1, LocalDate.now());
-        concurso.inscribirParticipante(p2, LocalDate.now());
-        concurso.inscribirParticipante(p3, LocalDate.now());
-        concurso.inscribirParticipante(p4, LocalDate.now());
-
-        Inscripcion insc = new Inscripcion(p1, concurso);
-        Inscripcion insc2 = new Inscripcion(p2, concurso);
-        Inscripcion insc3 = new Inscripcion(p3, concurso);
-        Inscripcion insc4 = new Inscripcion(p4, concurso);
+        //Inscripcion insc2 = concurso.inscribirParticipante(p2, LocalDate.now());
 
         //-----------------------------------------------------------------------
         Plato fideos = new Plato("Fideos con tuco", 16000);
@@ -42,27 +40,17 @@ public class Main {
 
         TarjetaVisa visa = new TarjetaVisa();
 
-        Pedido pedido = new Pedido();
+        Pedido pedido = new Pedido(exportarDB);
         pedido.agregarItem(item1);
         pedido.agregarItem(item2);
         pedido.agregarItem(item3);
         pedido.agregarItem(item4);
 
         pedido.confirmarPedido();
-        pedido.calcularTotalFinal(visa,0.05);
 
-        Ticket ticket = new Ticket(pedido.calcularTotalFinal(visa,0.05));
+        pedido.calcularTotalFinal(visa,0.05);
         //-------------------------------------------------------------------------------
 
-        Exportador exportarFile = new FileExport("C:/Users/marti/OneDrive/Documents/UNI/3er año 26/Objetos 2/TP/-salida.txt");
-        Exportador exportarDB = new DBExport("jdbc:mysql://localhost:3306/tp_objetos", "root", "74631");
 
-        exportarDB.exportarInsc(insc);
-        exportarDB.exportarInsc(insc2);
-
-        exportarDB.exportarPago(ticket);
-
-        exportarFile.exportarPago(ticket);
-        exportarFile.exportarInsc(insc);
     }
 }

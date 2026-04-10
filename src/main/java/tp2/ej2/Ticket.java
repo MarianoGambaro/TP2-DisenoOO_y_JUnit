@@ -21,8 +21,8 @@ public class Ticket {
         return monto;
     }
 
-    @Override
-    public String toString() {
-        return fecha.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) + " || " + monto + System.lineSeparator();
+    public String toCSV() {
+        return fecha.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
+                + " || " + monto + System.lineSeparator();
     }
 }
